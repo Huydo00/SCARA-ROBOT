@@ -1,0 +1,134 @@
+// #include <Arduino.h>
+// #include <SoftwareSerial.h>
+// #include <AccelStepper.h>
+// #include <Servo.h>
+// int tep = 4;
+// int dir = 7;
+// int ena = 8;
+
+// void setup() 
+// {
+//   Serial.begin(9600);
+//   pinMode(ena,OUTPUT); // Enable pin dùng để khởi động motor
+//   pinMode(tep,OUTPUT); // Step chân xung
+//   pinMode(dir,OUTPUT); // Dir xác định chiều quay
+  
+//   digitalWrite(ena,LOW); // Set Enable LOW - khởi động motor
+// }
+
+// void loop() 
+// {
+//   // 1 PWM = 1/4 * 1.8' = 0.45
+//   // 1 vòng 360' = 360/0.45 = 800
+//   for(int x=0; x<=400; x++)
+//   {
+//     digitalWrite(tep,HIGH);
+//     delayMicroseconds(800); // tốc độ
+//     digitalWrite(tep,LOW);
+//     delayMicroseconds(800);
+//   }
+//   delay(1000);
+
+//   digitalWrite(dir,LOW);
+//   for(int x=400; x>=0; x--)
+//   {
+//     digitalWrite(tep,HIGH);
+//     delayMicroseconds(800); // tốc độ
+//     digitalWrite(tep,LOW);
+//     delayMicroseconds(800);
+//   }
+//   delay(1000);
+// }
+
+
+
+// \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+// #include <Arduino.h>
+// #include <SoftwareSerial.h>
+// #include <AccelStepper.h>
+// #include <Servo.h>
+
+// /*  MS1   MS2    MS3
+//     LOW   LOW    LOW    Full
+//     LOW   HIGH   LOW    1/4
+//     HIGH  HIGH   LOW    1/8
+//     HIGH  HIGH   HIGH   1/16
+// */
+
+// /*  1 PWM = 1/4 * 1.8' = 0.45
+//     1 vòng 360' = 360/0.45 = 800
+//     B0:
+//     B1:
+//     B2:
+//     B3
+// */
+// Servo myservo;
+// int ena = 8;
+// int step_B0 = 2 ; int dir_B0 = 5;
+// int step_B1 = 3 ; int dir_B1 = 6;
+// int step_B2 = 4 ; int dir_B2 = 7;
+
+// AccelStepper Step_B0(1, step_B0, dir_B0, ena);
+// AccelStepper Step_B1(1, step_B1, dir_B1, ena);
+// AccelStepper Step_B2(1, step_B2, dir_B2, ena);
+
+// #define E_B0 9
+// #define E_B1 10
+// #define E_B2 11
+// #define E_B3 A3
+
+// bool gt_E_B0;
+// bool gt_E_B1;
+// bool gt_E_B2;
+// bool gt_E_B3;
+
+// void homeB2(){
+//   int homeB2 = 0;
+//   Step_B2.setMaxSpeed(800);
+//   Step_B2.setAcceleration(800);
+//   Step_B2.enableOutputs();
+
+//   while(digitalRead(E_B2) == 0){
+//     Step_B2.moveTo(homeB2);
+//     homeB2 ++;
+//     Step_B2.run();
+//     Serial.println(homeB2);
+//   }
+//   Step_B2.setCurrentPosition(0);
+//   homeB2 = 0;
+
+// }
+
+// void setup() {
+//   Serial.begin(9600);
+//   pinMode(E_B0, INPUT_PULLUP);
+//   pinMode(E_B1, INPUT_PULLUP);
+//   pinMode(E_B2, INPUT_PULLUP);
+//   pinMode(E_B3, INPUT_PULLUP);
+
+//   Step_B2.setEnablePin(8);
+//   Step_B2.setPinsInverted(false, false, true);
+//   Step_B2.setMaxSpeed(1000);
+//   homeB2();
+// }
+
+// void gtE(){
+//   gt_E_B0 = digitalRead(E_B0);
+//   gt_E_B1 = digitalRead(E_B1);
+//   gt_E_B2 = digitalRead(E_B2);
+//   gt_E_B3 = digitalRead(E_B3);
+
+//   Serial.print("B0:");
+//   Serial.print(gt_E_B0);
+//   Serial.print("     B1:");
+//   Serial.print(gt_E_B1);
+//   Serial.print("     B2:");
+//   Serial.print(gt_E_B2);
+//   Serial.print("     B3:");
+//   Serial.print(gt_E_B3);
+//   Serial.println("");
+//   delay(1000);
+// }
+
+// void loop() {
+// }
